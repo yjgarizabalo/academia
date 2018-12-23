@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--ESTILOS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
+    <title>Arrays</title>
+     
+    <script>
+         var vehiculos =["carro", "moto", "avioneta", "bicicleta", "camineta", "autobus"];
+    </script>
+</head>
+<body class="bg-dark">
+    <div class="container pt-3">
+      <h2 class="text-white pb-1 border-bottom border-white">Arrays c8</h2>
+
+      <script>
+         document.write("<p>" + "Vehiculos mas contaminantes " + "<strong>" + vehiculos[1] + "</strong> </p>");
+        
+         document.write("<p>" + "El vehiculo mas contaminate " + "<strong>" + vehiculos[vehiculos.length-1] + "</strong>");
+
+         vehiculos.unshift("tractor");
+
+         document.write("<p>" + "Un nuevo vehiculo contaminate " + "<strong>" + vehiculos[0] + "</strong>");
+
+         vehiculos.push(prompt("Ingrese vehiculo que crea contaminate"));
+
+         document.write("<p> " + " Usted cree que este vehiculos es contaminate " + "<strong>" + vehiculos[vehiculos.length-1] + "</strong> </p>" );
+      </script>
+    </div>
+    <style>
+        p{
+          color: #fff;
+        };
+    </style>
+</body>
+</html>
