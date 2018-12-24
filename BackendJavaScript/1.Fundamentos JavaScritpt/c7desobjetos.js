@@ -12,11 +12,14 @@ var Yair =  {
     edad: '26',
 }
 
-function imprimirNombre(nombre) {
+function imprimirNombre(persona) {
     // var perosna = persona.nombre
     var {nombre} = persona
-    console.log(nombre)
+    var {edad} = persona
+    console.log(nombre, edad)
 }
 
 imprimirNombre(Emanuel)
 imprimirNombre(Yair)
+
+
