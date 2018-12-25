@@ -14,3 +14,6 @@ var Wendy = {
     nombre: 'Wendy'
 }
 
+var otraPersona = {
+    nombre: 'Emanuel'
+}
