@@ -4,13 +4,13 @@
 var Emanuel = {
     nombre: 'Emanuel',
     Apellido: 'Garizabalo',
-    edad: '0',
+    edad: 0,
 }
 
 var Yair =  {
     nombre: 'Yair',
     peso: 'Garizabalo',
-    edad: '26',
+    edad: 26,
 }
 
 function imprimirNombre(persona) {
