@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, Platform, TextInput, KeyboardAvoidingView } from 'react-native';
+import  bgImage from './assets/img/splash.png';
 
 
 export default class App extends React.Component {
   render() {
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <KeyboardAvoidingView source={bgImage} style={styles.container} behavior="padding">
         <Text style={styles.largText}>San Francisco</Text>
         <Text style={styles.smallText}>Clear</Text>
         <Text style={styles.smallText}>15°</Text>
