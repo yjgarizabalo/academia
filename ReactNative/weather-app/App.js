@@ -1,15 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { StyleSheet, Text, View, Platform, TextInput, KeyboardAvoidingView } from 'react-native';
 
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Text style={styles.largText}>San Francisco</Text>
         <Text style={styles.smallText}>Clear</Text>
         <Text style={styles.smallText}>15°</Text>
-      </View>
+        <TextInput style={styles.TextInput}
+         autoCorrect={false}
+         autoFocus
+         clearButtonMode="while-editing"
+         keyboardAppearance="dark"
+         returnKeyType="search"
+         placeholder="Buscar Ciudad"/>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -29,7 +36,17 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontFamily: Platform.OS === 'ios' ?  'AvenirNext-Regular' : 'Roboto'
-  }
+  },
+  TextInput: {
+    backgroundColor: 'grey',
+    width: 300,
+    height: 50,
+    marginTop: 40,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    color: '#fff',
+    elevation: 5 
+  },
 });
 
 
