@@ -1,12 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, Platform, TextInput, KeyboardAvoidingView } from 'react-native';
-import  bgImage from './assets/img/splash.png';
+import { StyleSheet, Text, View, Platform, TextInput, KeyboardAvoidingView, ImageBackground  } from 'react-native';
+import  bgImage from './assets/img/light-rain.png';
 
 
 export default class App extends React.Component {
   render() {
     return (
-      <KeyboardAvoidingView source={bgImage} style={styles.container} behavior="padding">
+      <ImageBackground source={bgImage} style={{width: '100%', height: '100%'}}>
+      <KeyboardAvoidingView   style={styles.container} behavior="padding">
         <Text style={styles.largText}>San Francisco</Text>
         <Text style={styles.smallText}>Clear</Text>
         <Text style={styles.smallText}>15°</Text>
@@ -18,6 +19,7 @@ export default class App extends React.Component {
          returnKeyType="search"
          placeholder="Buscar Ciudad"/>
       </KeyboardAvoidingView>
+      </ImageBackground>
     );
   }
 }
@@ -25,15 +27,17 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
   },
   largText: {
     fontSize: 44,
+    color: '#fff'
   },
   smallText: {
     fontSize: 18,
+    color: '#fff'
   },
   textStyle: {
     fontFamily: Platform.OS === 'ios' ?  'AvenirNext-Regular' : 'Roboto'
@@ -44,7 +48,7 @@ const styles = StyleSheet.create({
     height: 50,
     marginTop: 40,
     paddingHorizontal: 10,
-    borderRadius: 5,
+    borderRadius: 30,
     color: '#fff',
     elevation: 5 
   },
