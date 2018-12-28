@@ -1,25 +1,42 @@
 import React from 'react';
 import { StyleSheet, Text, View, Platform, TextInput, KeyboardAvoidingView, ImageBackground  } from 'react-native';
-import  bgImage from './assets/img/light-rain.png';
-
-
+import SearchInput from './src/componets/SearchInput'
+import  bgImage from './assets/bg/clear.png'
 export default class App extends React.Component {
+  state = { 
+    text: '',
+    location: ''
+  }
+  
+  _handleChangeText = (text) => { this.setState({ text })
+  }
+
+  _handleSubmit = () => {
+    const { text } = this.state
+
+    if ( !text ){
+      return
+    }else {
+      this.setState({ location: text })
+      this.setState({ text: '' })
+      console.log(text)
+    }
+  }
+
   render() {
-    return (
-      <ImageBackground source={bgImage} style={{width: '100%', height: '100%'}}>
-      <KeyboardAvoidingView   style={styles.container} behavior="padding">
+    return (   
+      <KeyboardAvoidingView  style={styles.container} behavior="padding">
+       <ImageBackground source={bgImage} style={styles.background}>
         <Text style={styles.largText}>San Francisco</Text>
         <Text style={styles.smallText}>Clear</Text>
-        <Text style={styles.smallText}>15°</Text>
-        <TextInput style={styles.TextInput}
-         autoCorrect={false}
-         autoFocus
-         clearButtonMode="while-editing"
-         keyboardAppearance="dark"
-         returnKeyType="search"
-         placeholder="Buscar Ciudad"/>
+        <Text style={styles.largText}>15°</Text>
+        <SearchInput placeholder='Buscar Ciudad'
+        handleChangeText={ this._handleChangeText }
+        value= { this.state.text }
+        onSubmit= { this._handleSubmit }
+        />
+        </ImageBackground>
       </KeyboardAvoidingView>
-      </ImageBackground>
     );
   }
 }
@@ -28,30 +45,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
+  },
+  background: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   largText: {
     fontSize: 44,
-    color: '#fff'
+    color: '#000'
   },
   smallText: {
     fontSize: 18,
-    color: '#fff'
+    color: '#000'
   },
   textStyle: {
     fontFamily: Platform.OS === 'ios' ?  'AvenirNext-Regular' : 'Roboto'
   },
-  TextInput: {
-    backgroundColor: 'grey',
-    width: 300,
-    height: 50,
-    marginTop: 40,
-    paddingHorizontal: 10,
-    borderRadius: 30,
-    color: '#fff',
-    elevation: 5 
-  },
+
 });
 
 
