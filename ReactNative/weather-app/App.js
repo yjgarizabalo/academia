@@ -24,10 +24,11 @@ export default class App extends React.Component {
   }
 
   render() {
+    const { location } = this.state
     return (   
       <KeyboardAvoidingView  style={styles.container} behavior="padding">
        <ImageBackground source={bgImage} style={styles.background}>
-        <Text style={styles.largText}>San Francisco</Text>
+        <Text style={styles.largText}>{location}</Text>
         <Text style={styles.smallText}>Clear</Text>
         <Text style={styles.largText}>15°</Text>
         <SearchInput placeholder='Buscar Ciudad'
