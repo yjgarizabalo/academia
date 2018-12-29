@@ -38,6 +38,5 @@ console.log(`Al final del año ${Emanuel.nombre}  pesa ${Emanuel.peso.toFixed(1)
 
 console.log(`Para ${Tiempo.nombre} que llevo una vida ordenada y sin excesos le queda ${Tiempo.tiempo} años de vida`)
 
-for (var 1)
 
 console.log(`Para ${Tiempo.nombre} que llevo una vida Desordenada y Con excesos le queda ${Tiempo.tiempo} años de vida`)
