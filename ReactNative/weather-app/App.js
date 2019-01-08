@@ -28,11 +28,7 @@ export default class App extends React.Component {
     return (   
       <KeyboardAvoidingView  style={styles.container} behavior="padding">
        <ImageBackground source={bgImage} style={styles.background}>
-<<<<<<< HEAD
-       <Text style={styles.smallText}>Ciudad</Text>
-=======
-       <Text style={styles.smallText}>Ciudad..</Text>
->>>>>>> origin
+        <Text style={styles.smallText}>Ciudad</Text>
         <Text style={styles.largText}>{location}</Text>
         <Text style={styles.smallText}>Clear</Text>
         <Text style={styles.largText}>15°</Text>
