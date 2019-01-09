@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Platform, TextInput, KeyboardAvoidingView, ImageBackground  } from 'react-native';
+import { StyleSheet, Text, View, Platform, TextInput, KeyboardAvoidingView, ImageBackground, ActivityIndicator } from 'react-native';
 import SearchInput from './src/componets/SearchInput'
 import  bgImage from './assets/bg/clear.png'
 import  { fecthLocationId, fecthWeatherById } from './src/api'
@@ -7,46 +7,59 @@ import  { fecthLocationId, fecthWeatherById } from './src/api'
 export default class App extends React.Component {
   state = { 
     text: '',
-    location: '',
+    city: '',
     weather: '',
-    temperature: ''
+    temperature: '',
+    isLoanding: false
+    
+  }
+
+  componentDidMount () {
+    this._searchWeather("Toronto")
   }
   
-  _handleChangeText = (text) => { this.setState({ text })
-  }
+  _handleChangeText = (text) => this.setState({ text })
 
-  _handleSubmit = async () => {
+  _handleSubmit = () => {
     const { text } = this.state
-
-    if ( !text ){
+    if ( !text )
       return
-    }else {
-      this.setState({ location: text })
+      this._searchWeather(text)
       this.setState({ text: '' })
-
-      const locationData = await fecthLocationId( text )
-      console.log(locationData)
-      const woeid = locationData[0].woeid
-      const  weatherData = await fecthWeatherById( woeid )
-      const { weather, temperature} = weatherData
-      this.setState({weather, temperature})
     }
-  }
+
+    _searchWeather = async (location) => {
+
+      this.setState({isLoanding: true})
+
+      const locationData = await fecthLocationId( location )
+      const woeid = locationData[0].woeid
+      
+      const  weatherData = await fecthWeatherById( woeid )
+      const { weather, temperature, city} = weatherData
+      this.setState({weather, temperature, city, isLoanding: false})
+    }
 
   render() {
-    const { location, weather, temperature,  } = this.state
+    const { city, weather, temperature, isLoanding } = this.state
     return (   
       <KeyboardAvoidingView  style={styles.container} behavior="padding">
        <ImageBackground source={bgImage} style={styles.background}>
-        <Text style={styles.smallText}>Ciudad</Text>
-        <Text style={styles.largText}>{location}</Text>
-        <Text style={styles.smallText}>{weather}</Text>
-        <Text style={styles.largText}>{temperature}°</Text>
-        <SearchInput placeholder='Buscar Ciudad'
-        handleChangeText={ this._handleChangeText }
-        value= { this.state.text }
-        onSubmit= { this._handleSubmit }
+        {
+          isLoanding
+          ? <ActivityIndicator size ="large"/>
+          : <React.Fragment>
+          <Text style={styles.smallText}>Ciudad</Text>
+          <Text style={styles.largText}>{city}</Text>
+          <Text style={styles.smallText}>{weather}</Text>
+          <Text style={styles.largText}>{Math.round(temperature)}°</Text>
+          <SearchInput placeholder='Buscar Ciudad'
+           handleChangeText={ this._handleChangeText }
+           value= { this.state.text }
+           onSubmit= { this._handleSubmit }
         />
+          </React.Fragment>
+        }
         </ImageBackground>
       </KeyboardAvoidingView>
     );
