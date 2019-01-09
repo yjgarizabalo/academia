@@ -2,16 +2,20 @@ import React from 'react';
 import { StyleSheet, Text, View, Platform, TextInput, KeyboardAvoidingView, ImageBackground  } from 'react-native';
 import SearchInput from './src/componets/SearchInput'
 import  bgImage from './assets/bg/clear.png'
+import  { fecthLocationId, fecthWeatherById } from './src/api'
+
 export default class App extends React.Component {
   state = { 
     text: '',
-    location: ''
+    location: '',
+    weather: '',
+    temperature: ''
   }
   
   _handleChangeText = (text) => { this.setState({ text })
   }
 
-  _handleSubmit = () => {
+  _handleSubmit = async () => {
     const { text } = this.state
 
     if ( !text ){
@@ -19,19 +23,25 @@ export default class App extends React.Component {
     }else {
       this.setState({ location: text })
       this.setState({ text: '' })
-      console.log(text)
+
+      const locationData = await fecthLocationId( text )
+      console.log(locationData)
+      const woeid = locationData[0].woeid
+      const  weatherData = await fecthWeatherById( woeid )
+      const { weather, temperature} = weatherData
+      this.setState({weather, temperature})
     }
   }
 
   render() {
-    const { location } = this.state
+    const { location, weather, temperature,  } = this.state
     return (   
       <KeyboardAvoidingView  style={styles.container} behavior="padding">
        <ImageBackground source={bgImage} style={styles.background}>
         <Text style={styles.smallText}>Ciudad</Text>
         <Text style={styles.largText}>{location}</Text>
-        <Text style={styles.smallText}>Clear</Text>
-        <Text style={styles.largText}>15°</Text>
+        <Text style={styles.smallText}>{weather}</Text>
+        <Text style={styles.largText}>{temperature}°</Text>
         <SearchInput placeholder='Buscar Ciudad'
         handleChangeText={ this._handleChangeText }
         value= { this.state.text }
@@ -66,6 +76,3 @@ const styles = StyleSheet.create({
   },
 
 });
-
-
-
