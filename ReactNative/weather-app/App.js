@@ -10,7 +10,8 @@ export default class App extends React.Component {
     city: '',
     weather: '',
     temperature: '',
-    isLoanding: false
+    isLoanding: false,
+    error: false
     
   }
 
@@ -29,37 +30,50 @@ export default class App extends React.Component {
     }
 
     _searchWeather = async (location) => {
-
-      this.setState({isLoanding: true})
-
-      const locationData = await fecthLocationId( location )
-      const woeid = locationData[0].woeid
       
-      const  weatherData = await fecthWeatherById( woeid )
-      const { weather, temperature, city} = weatherData
-      this.setState({weather, temperature, city, isLoanding: false})
+      try {
+        this.setState({isLoanding: true})
+
+        const locationData = await fecthLocationId( location )
+        const woeid = locationData[0].woeid
+        
+        const  weatherData = await fecthWeatherById( woeid )
+        const { weather, temperature, city} = weatherData
+        this.setState({weather, temperature, city, isLoanding: false, error: false})
+      } catch (error){
+        this.setState({
+          error: true,
+          isLoanding: false
+        })
+      }
+
     }
 
   render() {
-    const { city, weather, temperature, isLoanding } = this.state
+    const { city, weather, temperature, isLoanding, error } = this.state
     return (   
       <KeyboardAvoidingView  style={styles.container} behavior="padding">
        <ImageBackground source={bgImage} style={styles.background}>
         {
           isLoanding
           ? <ActivityIndicator size ="large"/>
-          : <React.Fragment>
-          <Text style={styles.smallText}>Ciudad</Text>
-          <Text style={styles.largText}>{city}</Text>
-          <Text style={styles.smallText}>{weather}</Text>
-          <Text style={styles.largText}>{Math.round(temperature)}°</Text>
-          <SearchInput placeholder='Buscar Ciudad'
-           handleChangeText={ this._handleChangeText }
-           value= { this.state.text }
-           onSubmit= { this._handleSubmit }
-        />
-          </React.Fragment>
+          : (
+             error
+             ? <Text>ERROR 5090 CHINGATU MADRE</Text>
+             :<React.Fragment>
+              <Text style={styles.smallText}>Ciudad</Text>
+              <Text style={styles.largText}>{city}</Text>
+              <Text style={styles.smallText}>{weather}</Text>
+              <Text style={styles.largText}>{Math.round(temperature)}°</Text>
+              
+              </React.Fragment>
+          )
         }
+        <SearchInput placeholder='Buscar Ciudad'
+              handleChangeText={ this._handleChangeText }
+              value= { this.state.text }
+              onSubmit= { this._handleSubmit }
+            />
         </ImageBackground>
       </KeyboardAvoidingView>
     );
