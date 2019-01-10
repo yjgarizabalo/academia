@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Platform, TextInput, KeyboardAvoidingView, Imag
 import SearchInput from './src/componets/SearchInput'
 import  bgImage from './assets/bg/clear.png'
 import  { fecthLocationId, fecthWeatherById } from './src/api'
+import getWeatherBackground from './src/utils/getWeatherBackground'
 
 export default class App extends React.Component {
   state = { 
@@ -50,10 +51,10 @@ export default class App extends React.Component {
     }
 
   render() {
-    const { city, weather, temperature, isLoanding, error } = this.state
+    const { city, weather, temperature, isLoanding, error, } = this.state
     return (   
       <KeyboardAvoidingView  style={styles.container} behavior="padding">
-       <ImageBackground source={bgImage} style={styles.background}>
+       <ImageBackground source={getWeatherBackground( weather)} style={styles.background}>
         {
           isLoanding
           ? <ActivityIndicator size ="large"/>
