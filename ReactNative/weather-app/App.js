@@ -54,7 +54,7 @@ export default class App extends React.Component {
     const { city, weather, temperature, isLoanding, error, } = this.state
     return (   
       <KeyboardAvoidingView  style={styles.container} behavior="padding">
-       <ImageBackground source={getWeatherBackground( weather)} style={styles.background}>
+       <ImageBackground source={getWeatherBackground( weather )} style={styles.background}>
         {
           isLoanding
           ? <ActivityIndicator size ="large"/>
